@@ -9,13 +9,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jona.curso.springboot.webapp.springbootweb.models.User;
+import com.jona.curso.springboot.webapp.springbootweb.models.dto.UserDto;
 
 @RestController
 @RequestMapping("/api")
 public class UserRestController {
 
     @GetMapping("/details")
-    public Map<String, Object> details() {
+    public UserDto details() {
+
+        User user = new User("Jonathan", "Sanchez");
+        UserDto userDto = new UserDto();
+        userDto.setUser(user);
+        userDto.setTitle("Hola Mundo Spring Boot");
+        return userDto;
+    }
+
+    // Forma con Map
+    @GetMapping("/details-map")
+    public Map<String, Object> detailsMap() {
 
         User user = new User("Jonathan", "Sanchez");
 
