@@ -1,6 +1,7 @@
 package com.jona.curso.springboot.webapp.springbootweb.controllers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -23,12 +24,17 @@ public class PathVariableController {
     private String username;
 
     @Value("${config.listOfValues}")
-    private String[] listOfValues;
+    private List<String> listOfValues;
 
     @Value("${config.code}")
     private Integer code;
 
+    // Spring Expression Language (SpEL) con @Value
+    @Value("#{ '${config.listOfValues}'.toUpperCase().split(',')}")
+    private List<String> valueList;
 
+    @Value("#{ '${config.listOfValues}'.toUpperCase()}")
+    private String valueString;
 
     @GetMapping("/baz/{message}")
     public ParamDto baz(@PathVariable String message) {
@@ -59,6 +65,8 @@ public class PathVariableController {
         json.put("message", message);
         json.put("code", code);
         json.put("listOfValues", listOfValues);
+        json.put("valueList", valueList);
+        json.put("valueString", valueString);
         return json;
     }
 }
