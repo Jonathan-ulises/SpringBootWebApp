@@ -13,5 +13,13 @@
         <li th:if="${user.email}" th:text="${ user.email }"></li>
         <li th:if="${not (user.email != null)}" th:text="${ 'no tiene email' }"></li>
     </ul>
+
+    <a th:href="@{/list}">Ver listado</a><br>
+    <a th:href="@{'/api/params/foo?message=' + ${title}}">Ver mensaje usando variable</a><br>
+    <a th:href="@{/api/params/foo?message=prueba mensaje usando string}">Ver mensaje usando string</a><br>
+    <a th:href="@{/api/params/foo(message='prueba mensaje usando propiedades de thymeleaf')}">Ver mensaje usando thymeleaf</a><br>
+    <a th:href="@{/api/params/bar(text='prueba text', code=22131)}">Ver mensaje usando thymeleaf con varios parametros</a><br>
+    <a th:href="@{/api/var/baz/Mensaje en la ruta}">Ver mensaje usando thymeleaf con PathVariables</a><br>
+    <a th:href="@{'/api/var/baz/' + ${title}}">Ver mensaje usando thymeleaf con PathVariables (variable)</a><br>
 </body>
 </html>
