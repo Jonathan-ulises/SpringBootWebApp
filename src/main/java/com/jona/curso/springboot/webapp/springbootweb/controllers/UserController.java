@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.jona.curso.springboot.webapp.springbootweb.models.User;
 
@@ -35,15 +36,32 @@ public class UserController {
 
     @GetMapping("/list")
     public String list(ModelMap model) {
+        // Se va a reutilizar con @ModalAttribute
+        // List<User> users = Arrays.asList(
+        //     new User("Jonathan", "Ulises"),
+        //     new User("Luis", "Ernesto", "lernes@email.com"),
+        //     new User("Oscar", "Alan", "oalan@email.com"),
+        //     new User("Alan", "Ramirez")
+        // );
+        // model.addAttribute("users", users);
+        model.addAttribute("title", "Listado de Usuarios");
+        return "list";
+    }
+
+    /*
+     * Sirve usa para reutilizar valores en todo el controlador.
+     * Se puede usar el atribute "users" en las vistas que se esten usando en este controlador
+     * con thymeleaft.
+     */
+    @ModelAttribute("users")
+    public List<User> usersModel() {
         List<User> users = Arrays.asList(
             new User("Jonathan", "Ulises"),
             new User("Luis", "Ernesto", "lernes@email.com"),
             new User("Oscar", "Alan", "oalan@email.com"),
             new User("Alan", "Ramirez")
         );
-        model.addAttribute("users", users);
-        model.addAttribute("title", "Listado de Usuarios");
-        return "list";
+        return users;
     }
     
 }
