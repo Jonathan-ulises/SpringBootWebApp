@@ -3,6 +3,7 @@ package com.jona.curso.springboot.webapp.springbootweb.controllers;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,18 @@ import com.jona.curso.springboot.webapp.springbootweb.models.dto.ParamDto;
 @RestController
 @RequestMapping("/api/var")
 public class PathVariableController {
+
+    // Valores de archivos properties
+    @Value("${config.username}")
+    private String username;
+
+    @Value("${config.listOfValues}")
+    private String[] listOfValues;
+
+    @Value("${config.code}")
+    private Integer code;
+
+
 
     @GetMapping("/baz/{message}")
     public ParamDto baz(@PathVariable String message) {
@@ -37,5 +50,15 @@ public class PathVariableController {
         // Hacer procesos con el user, como guardar en la bd
         user.setName(user.getName().toUpperCase());
         return user;
+    }
+
+    @GetMapping("/values")
+    public Map<String, Object> values(@Value("${config.message}") String message) {
+        Map<String, Object> json = new HashMap<>();
+        json.put("username", username);
+        json.put("message", message);
+        json.put("code", code);
+        json.put("listOfValues", listOfValues);
+        return json;
     }
 }
